@@ -41,8 +41,9 @@ public class LikeView extends View {
     PointF[] dotsF3 = new PointF[3];
     PointF[] dotsF4 = new PointF[3];
 
-    int[] dotColors = new int[]{0xFF9ff048, 0xFF2A5200, 0xFFFF534D, 0xFF25C6FC, 0xFFFF5938, 0xFFC1194E, 0xFF1DB0B8, 0xFF37c6c0
-            , 0xFF2E68AA, 0xFF77C34F, 0xFF65A36C, 0xFF5E8579, 0xFFFF534D, 0xFF1DB0B8, 0xFFFF5938, 0xFF2E68AA};
+    int[] dotColors = new int[]{0xFF9ff048, 0xFF2A5200, 0xFFFF534D, 0xFF25C6FC, 0xFFFF5938,
+            0xFFC1194E, 0xFF1DB0B8, 0xFF37c6c0, 0xFF2E68AA, 0xFF77C34F, 0xFF65A36C, 0xFF5E8579,
+            0xFFFF534D, 0xFF1DB0B8, 0xFFFF5938, 0xFF2E68AA};
 
     int ANIM_GRAY_HEART = 0;
     int ANIM_PURPLE_CIRCLE = 1;

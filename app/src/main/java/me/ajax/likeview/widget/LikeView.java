@@ -56,6 +56,8 @@ public class LikeView extends View {
     boolean isDrawPointsShow = false;
     boolean isDrawPointsHide = false;
 
+    boolean isStart = false;
+
     public LikeView(Context context) {
         super(context);
         init();
@@ -126,15 +128,15 @@ public class LikeView extends View {
             canvas.drawCircle(0, 0, circleRadius * fraction, mPaint);
         }
         //桃心2
-        if (isDrawRedHeart) {
+        if (!isStart || isDrawRedHeart) {
             mPaint.setColor(0xFFF10B2D);
-            float fraction = animArr.get(ANIM_RED_HEART).getAnimatedFraction();
+            float fraction = !isStart ? 1 : animArr.get(ANIM_RED_HEART).getAnimatedFraction();
             refreshHeart(heartRadius * fraction);
             drawHeart(canvas, heartPath);
         }
         //小球运动
-        if (isDrawPointsShow) {
-            float fraction = animArr.get(ANIM_POINT_SHOW).getAnimatedFraction();
+        if (!isStart || isDrawPointsShow) {
+            float fraction = !isStart ? 1 : animArr.get(ANIM_POINT_SHOW).getAnimatedFraction();
             drawPoints(canvas, circleRadius + dp2Dx(30) * fraction, dp2Dx(5));
         }
         //小球隐藏
@@ -254,6 +256,7 @@ public class LikeView extends View {
             animator.cancel();
             animator.start();
             isDrawGrayHeart = true;
+            isStart = true;
         }
     }
 

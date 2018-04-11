@@ -36,27 +36,27 @@ public class LikeView extends View {
     int heartRadius = dp2Dx(50);
     int circleRadius = heartRadius + dp2Dx(15);
 
-    PointF[] pointsF1 = new PointF[3];
-    PointF[] pointsF2 = new PointF[3];
-    PointF[] pointsF3 = new PointF[3];
-    PointF[] pointsF4 = new PointF[3];
+    PointF[] dotsF1 = new PointF[3];
+    PointF[] dotsF2 = new PointF[3];
+    PointF[] dotsF3 = new PointF[3];
+    PointF[] dotsF4 = new PointF[3];
 
-    int[] pointColors = new int[]{0xFF9ff048, 0xFF2A5200, 0xFFFF534D, 0xFF25C6FC, 0xFFFF5938, 0xFFC1194E, 0xFF1DB0B8, 0xFF37c6c0
+    int[] dotColors = new int[]{0xFF9ff048, 0xFF2A5200, 0xFFFF534D, 0xFF25C6FC, 0xFFFF5938, 0xFFC1194E, 0xFF1DB0B8, 0xFF37c6c0
             , 0xFF2E68AA, 0xFF77C34F, 0xFF65A36C, 0xFF5E8579, 0xFFFF534D, 0xFF1DB0B8, 0xFFFF5938, 0xFF2E68AA};
 
     int ANIM_GRAY_HEART = 0;
     int ANIM_PURPLE_CIRCLE = 1;
     int ANIM_WHITE_CIRCLE = 2;
     int ANIM_RED_HEART = 3;
-    int ANIM_POINT_SHOW = 4;
-    int ANIM_POINT_HIDE = 5;
+    int ANIM_DOT_SHOW = 4;
+    int ANIM_DOT_HIDE = 5;
 
     boolean isDrawGrayHeart = false;
     boolean isDrawPurpleCircle = false;
     boolean isDrawWhiteCircle = false;
     boolean isDrawRedHeart = false;
-    boolean isDrawPointsShow = false;
-    boolean isDrawPointsHide = false;
+    boolean isDrawDotsShow = false;
+    boolean isDrawDotsHide = false;
 
     boolean isStart = false;
 
@@ -86,10 +86,10 @@ public class LikeView extends View {
 
         //实例化点
         for (int i = 0; i < 3; i++) {
-            pointsF1[i] = new PointF();
-            pointsF2[i] = new PointF();
-            pointsF3[i] = new PointF();
-            pointsF4[i] = new PointF();
+            dotsF1[i] = new PointF();
+            dotsF2[i] = new PointF();
+            dotsF3[i] = new PointF();
+            dotsF4[i] = new PointF();
         }
         refreshHeart(heartRadius);
 
@@ -116,7 +116,7 @@ public class LikeView extends View {
             mPaint.setColor(0XFFA2B4BA);
             refreshHeart(heartRadius);
             float fraction = animArr.get(ANIM_GRAY_HEART).getAnimatedFraction();
-            canvas.scale(fraction, fraction, pointsF3[1].x, pointsF3[1].y);
+            canvas.scale(fraction, fraction, dotsF3[1].x, dotsF3[1].y);
             drawHeart(canvas, heartPath);
         }
         //圆1
@@ -139,14 +139,14 @@ public class LikeView extends View {
             drawHeart(canvas, heartPath);
         }
         //小球运动
-        if (!isStart || isDrawPointsShow) {
-            float fraction = !isStart ? 1 : animArr.get(ANIM_POINT_SHOW).getAnimatedFraction();
-            drawPoints(canvas, circleRadius + dp2Dx(30) * fraction, dp2Dx(5));
+        if (!isStart || isDrawDotsShow) {
+            float fraction = !isStart ? 1 : animArr.get(ANIM_DOT_SHOW).getAnimatedFraction();
+            drawDots(canvas, circleRadius + dp2Dx(30) * fraction, dp2Dx(5));
         }
         //小球隐藏
-        if (isDrawPointsHide) {
-            float fraction = animArr.get(ANIM_POINT_HIDE).getAnimatedFraction();
-            drawPoints(canvas, circleRadius + dp2Dx(30),
+        if (isDrawDotsHide) {
+            float fraction = animArr.get(ANIM_DOT_HIDE).getAnimatedFraction();
+            drawDots(canvas, circleRadius + dp2Dx(30),
                     (int) (dp2Dx(5) * (1 - fraction)));
         }
 
@@ -158,36 +158,36 @@ public class LikeView extends View {
      */
     void refreshHeart(float circleRadius) {
 
-        pointsF1[0].x = -(float) (Math.tan(Math.toRadians(30)) * circleRadius);
-        pointsF1[0].y = -circleRadius;
-        pointsF1[1].x = 0;
-        pointsF1[1].y = -circleRadius;
-        pointsF1[2].x = (float) (Math.tan(Math.toRadians(30)) * circleRadius);
-        pointsF1[2].y = -circleRadius;
+        dotsF1[0].x = -(float) (Math.tan(Math.toRadians(30)) * circleRadius);
+        dotsF1[0].y = -circleRadius;
+        dotsF1[1].x = 0;
+        dotsF1[1].y = -circleRadius;
+        dotsF1[2].x = (float) (Math.tan(Math.toRadians(30)) * circleRadius);
+        dotsF1[2].y = -circleRadius;
 
-        pointsF2[0].x = circleRadius;
-        pointsF2[0].y = -(float) (Math.tan(Math.toRadians(30)) * circleRadius);
-        pointsF2[1].x = circleRadius;
-        pointsF2[1].y = 0;
-        pointsF2[2].x = circleRadius;
-        pointsF2[2].y = (float) (Math.tan(Math.toRadians(30)) * circleRadius);
+        dotsF2[0].x = circleRadius;
+        dotsF2[0].y = -(float) (Math.tan(Math.toRadians(30)) * circleRadius);
+        dotsF2[1].x = circleRadius;
+        dotsF2[1].y = 0;
+        dotsF2[2].x = circleRadius;
+        dotsF2[2].y = (float) (Math.tan(Math.toRadians(30)) * circleRadius);
 
-        pointsF3[0].x = (float) (Math.tan(Math.toRadians(30)) * circleRadius);
-        pointsF3[0].y = circleRadius;
-        pointsF3[1].x = 0;
-        pointsF3[1].y = circleRadius;
-        pointsF3[2].x = -(float) (Math.tan(Math.toRadians(30)) * circleRadius);
-        pointsF3[2].y = circleRadius;
+        dotsF3[0].x = (float) (Math.tan(Math.toRadians(30)) * circleRadius);
+        dotsF3[0].y = circleRadius;
+        dotsF3[1].x = 0;
+        dotsF3[1].y = circleRadius;
+        dotsF3[2].x = -(float) (Math.tan(Math.toRadians(30)) * circleRadius);
+        dotsF3[2].y = circleRadius;
 
-        pointsF4[0].x = -circleRadius;
-        pointsF4[0].y = (float) (Math.tan(Math.toRadians(30)) * circleRadius);
-        pointsF4[1].x = -circleRadius;
-        pointsF4[1].y = 0;
-        pointsF4[2].x = -circleRadius;
-        pointsF4[2].y = -(float) (Math.tan(Math.toRadians(30)) * circleRadius);
+        dotsF4[0].x = -circleRadius;
+        dotsF4[0].y = (float) (Math.tan(Math.toRadians(30)) * circleRadius);
+        dotsF4[1].x = -circleRadius;
+        dotsF4[1].y = 0;
+        dotsF4[2].x = -circleRadius;
+        dotsF4[2].y = -(float) (Math.tan(Math.toRadians(30)) * circleRadius);
 
-        pointsF1[1].y += circleRadius / 3;
-        pointsF3[1].y += circleRadius / 3;
+        dotsF1[1].y += circleRadius / 3;
+        dotsF3[1].y += circleRadius / 3;
     }
 
     /**
@@ -196,27 +196,27 @@ public class LikeView extends View {
     void drawHeart(Canvas canvas, Path path) {
 
         path.reset();
-        path.moveTo(pointsF1[1].x, pointsF1[1].y);
-        path.cubicTo(pointsF1[2].x, pointsF1[2].y, pointsF2[0].x, pointsF2[0].y, pointsF2[1].x, pointsF2[1].y);
-        path.cubicTo(pointsF2[2].x, pointsF2[2].y, pointsF3[0].x, pointsF3[0].y, pointsF3[1].x, pointsF3[1].y);
-        path.cubicTo(pointsF3[2].x, pointsF3[2].y, pointsF4[0].x, pointsF4[0].y, pointsF4[1].x, pointsF4[1].y);
-        path.cubicTo(pointsF4[2].x, pointsF4[2].y, pointsF1[0].x, pointsF1[0].y, pointsF1[1].x, pointsF1[1].y);
+        path.moveTo(dotsF1[1].x, dotsF1[1].y);
+        path.cubicTo(dotsF1[2].x, dotsF1[2].y, dotsF2[0].x, dotsF2[0].y, dotsF2[1].x, dotsF2[1].y);
+        path.cubicTo(dotsF2[2].x, dotsF2[2].y, dotsF3[0].x, dotsF3[0].y, dotsF3[1].x, dotsF3[1].y);
+        path.cubicTo(dotsF3[2].x, dotsF3[2].y, dotsF4[0].x, dotsF4[0].y, dotsF4[1].x, dotsF4[1].y);
+        path.cubicTo(dotsF4[2].x, dotsF4[2].y, dotsF1[0].x, dotsF1[0].y, dotsF1[1].x, dotsF1[1].y);
         canvas.drawPath(path, mPaint);
     }
 
     /**
      * 绘制小点点
      */
-    void drawPoints(Canvas canvas, float p, int size) {
+    void drawDots(Canvas canvas, float p, int size) {
 
         float p2 = p - dp2Dx(10);
         int j = 0;
         for (int i = 0; i < 8; i++, j += 2) {
 
-            mPaint.setColor(pointColors[j]);
+            mPaint.setColor(dotColors[j]);
             canvas.drawCircle(getXFromPolar(p, i * 45), getYFromPolar(p, i * 45), size, mPaint);
 
-            mPaint.setColor(pointColors[j + 1]);
+            mPaint.setColor(dotColors[j + 1]);
             canvas.drawCircle(getXFromPolar(p2, i * 45 + 10), getYFromPolar(p2, i * 45 + 10), size, mPaint);
         }
     }
@@ -231,8 +231,8 @@ public class LikeView extends View {
         isDrawPurpleCircle = false;
         isDrawWhiteCircle = false;
         isDrawRedHeart = false;
-        isDrawPointsShow = false;
-        isDrawPointsHide = false;
+        isDrawDotsShow = false;
+        isDrawDotsHide = false;
 
         ValueAnimator animator = animArr.get(ANIM_GRAY_HEART);
         if (animator == null) {
@@ -318,7 +318,7 @@ public class LikeView extends View {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
                     if (animation.getAnimatedFraction() > 0.8F) {
-                        startPointShow();
+                        startDotsShow();
                     }
                     invalidate();
                 }
@@ -363,9 +363,9 @@ public class LikeView extends View {
     /**
      * 启动小点点显示动画
      */
-    private void startPointShow() {
+    private void startDotsShow() {
 
-        ValueAnimator animator = animArr.get(ANIM_POINT_SHOW);
+        ValueAnimator animator = animArr.get(ANIM_DOT_SHOW);
         if (animator == null) {
 
             animator = ValueAnimator.ofFloat(0F, 1F);
@@ -374,7 +374,7 @@ public class LikeView extends View {
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    startPointHide();
+                    startDotsHide();
                 }
             });
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -383,22 +383,22 @@ public class LikeView extends View {
                     invalidate();
                 }
             });
-            animArr.append(ANIM_POINT_SHOW, animator);
+            animArr.append(ANIM_DOT_SHOW, animator);
         }
 
         if (!animator.isStarted() && !animator.isRunning()) {
             animator.cancel();
             animator.start();
-            isDrawPointsShow = true;
+            isDrawDotsShow = true;
         }
     }
 
     /**
      * 启动小点点隐藏动画
      */
-    private void startPointHide() {
+    private void startDotsHide() {
 
-        ValueAnimator animator = animArr.get(ANIM_POINT_HIDE);
+        ValueAnimator animator = animArr.get(ANIM_DOT_HIDE);
         if (animator == null) {
 
             animator = ValueAnimator.ofFloat(0F, 1F);
@@ -407,12 +407,12 @@ public class LikeView extends View {
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationStart(Animator animation) {
-                    isDrawPointsShow = false;
+                    isDrawDotsShow = false;
                 }
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    isDrawPointsHide = false;
+                    isDrawDotsHide = false;
                 }
             });
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -421,13 +421,13 @@ public class LikeView extends View {
                     invalidate();
                 }
             });
-            animArr.append(ANIM_POINT_HIDE, animator);
+            animArr.append(ANIM_DOT_HIDE, animator);
         }
 
         if (!animator.isStarted() && !animator.isRunning()) {
             animator.cancel();
             animator.start();
-            isDrawPointsHide = true;
+            isDrawDotsHide = true;
         }
     }
 

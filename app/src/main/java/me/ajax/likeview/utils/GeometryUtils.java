@@ -121,14 +121,14 @@ public class GeometryUtils {
     /**
      * 极坐标转换为直角坐标
      */
-    public static float getXFromPolar(float p, double angle) {
+    public static float polarX(float p, double angle) {
         return (float) (p * Math.cos(Math.toRadians(angle)));
     }
 
     /**
      * 极坐标转换为直角坐标
      */
-    public static float getYFromPolar(float p, double angle) {
+    public static float polarY(float p, double angle) {
         return (float) (p * Math.sin(Math.toRadians(angle)));
     }
 

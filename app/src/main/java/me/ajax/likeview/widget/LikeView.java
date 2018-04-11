@@ -18,8 +18,8 @@ import android.util.SparseArray;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-import static me.ajax.likeview.utils.GeometryUtils.getXFromPolar;
-import static me.ajax.likeview.utils.GeometryUtils.getYFromPolar;
+import static me.ajax.likeview.utils.GeometryUtils.polarX;
+import static me.ajax.likeview.utils.GeometryUtils.polarY;
 
 
 /**
@@ -214,10 +214,10 @@ public class LikeView extends View {
         for (int i = 0; i < 8; i++, j += 2) {
 
             mPaint.setColor(dotColors[j]);
-            canvas.drawCircle(getXFromPolar(p, i * 45), getYFromPolar(p, i * 45), size, mPaint);
+            canvas.drawCircle(polarX(p, i * 45), polarY(p, i * 45), size, mPaint);
 
             mPaint.setColor(dotColors[j + 1]);
-            canvas.drawCircle(getXFromPolar(p2, i * 45 + 10), getYFromPolar(p2, i * 45 + 10), size, mPaint);
+            canvas.drawCircle(polarX(p2, i * 45 + 10), polarY(p2, i * 45 + 10), size, mPaint);
         }
     }
 
@@ -250,7 +250,7 @@ public class LikeView extends View {
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
-                    invalidate();
+                    invalidateView();
                 }
             });
             animArr.append(ANIM_GRAY_HEART, animator);
@@ -320,7 +320,7 @@ public class LikeView extends View {
                     if (animation.getAnimatedFraction() > 0.8F) {
                         startDotsShow();
                     }
-                    invalidate();
+                    invalidateView();
                 }
             });
             animArr.append(ANIM_WHITE_CIRCLE, animator);
@@ -347,7 +347,7 @@ public class LikeView extends View {
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
-                    invalidate();
+                    invalidateView();
                 }
             });
             animArr.append(ANIM_RED_HEART, animator);
@@ -380,7 +380,7 @@ public class LikeView extends View {
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
-                    invalidate();
+                    invalidateView();
                 }
             });
             animArr.append(ANIM_DOT_SHOW, animator);
@@ -418,7 +418,7 @@ public class LikeView extends View {
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
-                    invalidate();
+                    invalidateView();
                 }
             });
             animArr.append(ANIM_DOT_HIDE, animator);

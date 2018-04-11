@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -75,6 +76,8 @@ public class LikeView extends View {
     }
 
     void init() {
+
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);//关闭硬件加速
 
         //画笔
         mPaint.setColor(0xFFFF00FF);
@@ -434,6 +437,16 @@ public class LikeView extends View {
 
     void l(Object o) {
         Log.e("######", o.toString());
+    }
+
+    private void invalidateView() {
+        if (Looper.getMainLooper() == Looper.myLooper()) {
+            //  当前线程是主UI线程，直接刷新。
+            invalidate();
+        } else {
+            //  当前线程是非UI线程，post刷新。
+            postInvalidate();
+        }
     }
 
     @Override

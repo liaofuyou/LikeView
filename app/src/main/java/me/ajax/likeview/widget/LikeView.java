@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -42,12 +43,12 @@ public class LikeView extends View {
     int[] pointColors = new int[]{0xFF9ff048, 0xFF2A5200, 0xFFFF534D, 0xFF25C6FC, 0xFFFF5938, 0xFFC1194E, 0xFF1DB0B8, 0xFF37c6c0
             , 0xFF2E68AA, 0xFF77C34F, 0xFF65A36C, 0xFF5E8579, 0xFFFF534D, 0xFF1DB0B8, 0xFFFF5938, 0xFF2E68AA};
 
-    int ANIM_GRAY_HEART = 1;
-    int ANIM_PURPLE_CIRCLE = 2;
-    int ANIM_WHITE_CIRCLE = 3;
-    int ANIM_RED_HEART = 4;
-    int ANIM_POINT_SHOW = 5;
-    int ANIM_POINT_HIDE = 6;
+    int ANIM_GRAY_HEART = 0;
+    int ANIM_PURPLE_CIRCLE = 1;
+    int ANIM_WHITE_CIRCLE = 2;
+    int ANIM_RED_HEART = 3;
+    int ANIM_POINT_SHOW = 4;
+    int ANIM_POINT_HIDE = 5;
 
     boolean isDrawGrayHeart = false;
     boolean isDrawPurpleCircle = false;
@@ -435,5 +436,23 @@ public class LikeView extends View {
         Log.e("######", o.toString());
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        stopAnimAndRemoveCallbacks();
+    }
+
+    private void stopAnimAndRemoveCallbacks() {
+        isStart = false;
+        for (int i = 0; i < animArr.size(); i++) {
+            if (animArr.get(i) != null) {
+                animArr.get(i).end();
+            }
+        }
+        Handler handler = this.getHandler();
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+    }
 
 }
